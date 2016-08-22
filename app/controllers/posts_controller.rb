@@ -37,7 +37,11 @@ class PostsController < ApplicationController
       @post.destroy
       redirect_to root_path
     end
-        
+    
+    def show
+      @post = Post.find(params[:id])
+    end
+
     private
     
     def is_owner?
