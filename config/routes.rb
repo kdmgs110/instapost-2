@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :posts do 
     resources :comments
+    resources :upvotes, only: :create
+    resources :downvotes, only: :create
   end
   resources :users, only: :show
   # The priority is based upon order of creation: first created -> highest priority.
