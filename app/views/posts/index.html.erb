@@ -27,8 +27,22 @@
 
 
       <hr>
+      <!-- vote/devote -->
+      <% if user_signed_in? %>　
+        <span class ="post_like">
+             <% if current_user.voted_up_on? post %>
+                <%= link_to '<i class="fa fa-heart" aria-hidden="true"></i>'.html_safe, post_downvotes_path(post.id), method: :post %>
+             <% else %>
+               <%= link_to '<i class="fa fa-heart-o" aria-hidden="true"></i>'.html_safe, post_upvotes_path(post.id), method: :post %>
+             <% end %>
+        </span>
+        <%= pluralize post.get_likes.size, "like" %>
+      <% else %>
+        <span class="post_like">
+        <i class="fa fa-heart-o" aria-hidden = "true"></i></span><%= pluralize post.get_likes.size, "like" %>
+      <% end %>
 
-      <% if user_signed_in? %>
+      <% if user_signed_in? %> <!-- comment -->
         <%= simple_form_for Comment.new, url: post_comments_path(post), method: :post do |f| %>
           <%= f.input :text, label: 'Comment', placeholder: 'Add a comment...' %>
           <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
